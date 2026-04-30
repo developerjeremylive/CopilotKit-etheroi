@@ -17,9 +17,16 @@
 // `framework="langgraph"` or `framework="strands"` collapses to a single
 // tab; we keep that prop for parity with the upstream API even though
 // the canonical shell-docs page doesn't use it.
+//
+// Each command renders inside the same figure chrome that <Snippet> uses
+// (figcaption with a copy button + hljs-highlighted bash) so AgentCore
+// commands match the visual treatment of every other code block in the
+// docs instead of dropping to bare unstyled <pre> output.
 
 import React from "react";
+import hljs from "highlight.js";
 import { Tabs, Tab } from "@/components/docs-tabs";
+import { CopyButton } from "@/components/copy-button";
 
 interface AgentCoreCommandTabsProps {
   framework?: "langgraph" | "strands";
@@ -28,27 +35,42 @@ interface AgentCoreCommandTabsProps {
 }
 
 function CommandBlock({ command }: { command: string }) {
-  // Plain styled <pre><code> — shell-docs has no global syntax highlighter
-  // for one-off inline blocks, but the bash commands here are short and
-  // don't need highlighting to be readable. Background/border match the
-  // surrounding <Tabs> chrome.
+  // Highlight inline rather than relying on rehype-highlight (which only
+  // runs on MDX code fences, not on hand-rolled JSX). github /
+  // github-dark-dimmed themes are loaded globally in app/globals.css, so
+  // the `hljs language-bash` className picks up theming automatically.
+  let html: string;
+  try {
+    html = hljs.highlight(command, {
+      language: "bash",
+      ignoreIllegals: true,
+    }).value;
+  } catch {
+    html = escapeHtml(command);
+  }
+
   return (
-    <pre
-      style={{
-        margin: 0,
-        padding: "0.75rem 1rem",
-        background: "var(--bg-elevated)",
-        border: "1px solid var(--border)",
-        borderRadius: "0.375rem",
-        fontSize: "0.8125rem",
-        lineHeight: 1.5,
-        overflowX: "auto",
-        color: "var(--text)",
-      }}
-    >
-      <code className="language-bash">{command}</code>
-    </pre>
+    <figure className="my-3 rounded-lg border border-[var(--border)] overflow-hidden bg-[var(--bg-surface)]">
+      <figcaption className="flex items-center justify-end px-3 py-2 border-b border-[var(--border)] bg-[var(--bg-elevated)]">
+        <CopyButton text={command} />
+      </figcaption>
+      <pre className="text-[12.5px] leading-[1.55] overflow-x-auto p-4 m-0">
+        <code
+          className="hljs language-bash"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      </pre>
+    </figure>
   );
+}
+
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 export function AgentCoreCommandTabs({
