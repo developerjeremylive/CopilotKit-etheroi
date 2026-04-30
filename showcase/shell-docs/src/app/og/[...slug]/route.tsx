@@ -1,5 +1,5 @@
 import React from "react";
-import { type NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { notFound } from "next/navigation";
 import { ImageResponse } from "next/og";
 import { loadDoc } from "@/lib/docs-render";
@@ -95,73 +95,71 @@ export async function GET(
     }
 
     return new ImageResponse(
-      (
-        <section
-          style={{
-            backgroundColor: "#000000",
-            background: "#FAEEDC",
-            backgroundImage:
-              "url('https://cdn.copilotkit.ai/docs/copilotkit/images/opengraph-background.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "0% 0%",
-            width: "100%",
-            height: "100%",
-            padding: "5%",
-            display: "block",
-            position: "relative",
-            fontFamily: "Satori",
-          }}
-        >
-          <section style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ display: "flex" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                style={{
-                  width: "14rem",
-                }}
-                src="https://github-production-user-asset-6210df.s3.amazonaws.com/746397/288400836-bd5c9079-929b-4d55-bdc9-16d1c8181b71.png"
-                alt="CopilotKit"
-              />
-            </div>
-
-            <section
+      <section
+        style={{
+          backgroundColor: "#000000",
+          background: "#FAEEDC",
+          backgroundImage:
+            "url('https://cdn.copilotkit.ai/docs/copilotkit/images/opengraph-background.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "0% 0%",
+          width: "100%",
+          height: "100%",
+          padding: "5%",
+          display: "block",
+          position: "relative",
+          fontFamily: "Satori",
+        }}
+      >
+        <section style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               style={{
-                flexGrow: 1,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "flex-end",
+                width: "14rem",
               }}
-            >
-              {doc.fm.title && (
-                <p
-                  style={{
-                    color: "#4f46e5",
-                    fontFamily: fontOptions.length ? "Inter" : "sans-serif",
-                    fontWeight: 700,
-                    margin: 0,
-                    fontSize: 48,
-                  }}
-                >
-                  {doc.fm.title}
-                </p>
-              )}
-              {doc.fm.description && (
-                <p
-                  style={{
-                    color: "#000000",
-                    fontSize: 34,
-                    marginBottom: 12,
-                    fontWeight: 500,
-                    fontFamily: fontOptions.length ? "Inter" : "sans-serif",
-                  }}
-                >
-                  {doc.fm.description}
-                </p>
-              )}
-            </section>
+              src="https://github-production-user-asset-6210df.s3.amazonaws.com/746397/288400836-bd5c9079-929b-4d55-bdc9-16d1c8181b71.png"
+              alt="CopilotKit"
+            />
+          </div>
+
+          <section
+            style={{
+              flexGrow: 1,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-end",
+            }}
+          >
+            {doc.fm.title && (
+              <p
+                style={{
+                  color: "#4f46e5",
+                  fontFamily: fontOptions.length ? "Inter" : "sans-serif",
+                  fontWeight: 700,
+                  margin: 0,
+                  fontSize: 48,
+                }}
+              >
+                {doc.fm.title}
+              </p>
+            )}
+            {doc.fm.description && (
+              <p
+                style={{
+                  color: "#000000",
+                  fontSize: 34,
+                  marginBottom: 12,
+                  fontWeight: 500,
+                  fontFamily: fontOptions.length ? "Inter" : "sans-serif",
+                }}
+              >
+                {doc.fm.description}
+              </p>
+            )}
           </section>
         </section>
-      ),
+      </section>,
       {
         // width: width,
         // height: height,
