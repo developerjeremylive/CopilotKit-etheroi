@@ -112,6 +112,13 @@ export default function RootLayout({
                 `,
           }}
         />
+        <Script
+          id="hubspot-script"
+          type="text/javascript"
+          src="https://js.hs-scripts.com/45532593.js"
+          async
+          defer
+        />
       </head>
       <body className="min-h-screen">
         <AnalyticsClient />
