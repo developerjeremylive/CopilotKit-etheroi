@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { BrandNav } from "@/components/brand-nav";
 import { FrameworkProvider } from "@/components/framework-provider";
 import { PostHogProvider } from "@/lib/providers/posthog-provider";
+import { ScarfPixel } from "@/lib/providers/scarf-pixel";
 import { getIntegrations } from "@/lib/registry";
 import "./globals.css";
 
@@ -109,6 +110,7 @@ export default function RootLayout({
         >
           {commitLabel}
         </div>
+        <ScarfPixel />
       </body>
     </html>
   );
