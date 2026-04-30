@@ -5,7 +5,6 @@ import { Suspense } from "react";
 import { AnalyticsClient } from "@/components/analytics-client";
 import { BrandNav } from "@/components/brand-nav";
 import { FrameworkProvider } from "@/components/framework-provider";
-import { GoogleAnalyticsClient } from "@/components/ga-client";
 import { PostHogProvider } from "@/lib/providers/posthog-provider";
 import { ScarfPixel } from "@/lib/providers/scarf-pixel";
 import { getIntegrations } from "@/lib/registry";
@@ -123,7 +122,6 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen">
         <AnalyticsClient />
-        <GoogleAnalyticsClient />
         <Suspense fallback={null}>
           <PostHogProvider>
             <FrameworkProvider knownFrameworks={knownFrameworks}>
