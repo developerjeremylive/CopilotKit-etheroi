@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Spline_Sans_Mono } from "next/font/google";
+import { Suspense } from "react";
 import { BrandNav } from "@/components/brand-nav";
 import { FrameworkProvider } from "@/components/framework-provider";
+import { PostHogProvider } from "@/lib/providers/posthog-provider";
 import { getIntegrations } from "@/lib/registry";
 import "./globals.css";
 
@@ -83,10 +85,14 @@ export default function RootLayout({
       className={`${plusJakartaSans.variable} ${splineSansMono.variable}`}
     >
       <body className="min-h-screen">
-        <FrameworkProvider knownFrameworks={knownFrameworks}>
-          <BrandNav />
-          <main>{children}</main>
-        </FrameworkProvider>
+        <Suspense fallback={null}>
+          <PostHogProvider>
+            <FrameworkProvider knownFrameworks={knownFrameworks}>
+              <BrandNav />
+              <main>{children}</main>
+            </FrameworkProvider>
+          </PostHogProvider>
+        </Suspense>
         <div
           aria-hidden="true"
           style={{
