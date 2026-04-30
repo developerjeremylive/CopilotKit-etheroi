@@ -82,6 +82,15 @@ const PATH_EXCLUSIONS: RegExp[] = [
   /^docs\/content\/docs\/integrations\/langgraph\/shared-state\/workflow-execution\.mdx$/,
   /^docs\/content\/docs\/integrations\/adk\/shared-state\/(workflow-execution|state-inputs-outputs)\.mdx$/,
   /^docs\/content\/docs\/integrations\/llamaindex\/shared-state\/state-inputs-outputs\.mdx$/,
+  // AgentCore content was inlined into the canonical
+  // `deploy/agentcore.mdx` page (see PR #4514 follow-up). Block the
+  // upstream 3-shell + shared-snippet sources from re-flowing in:
+  // - the upstream root shell that delegates to `<Content />`
+  // - the per-framework shells that delegate to `<Content framework="..." />`
+  // - the 355-line shared snippet that powers them
+  /^docs\/content\/docs\/\(root\)\/deploy\/agentcore\.mdx$/,
+  /^docs\/content\/docs\/integrations\/[^/]+\/deploy-agentcore\.mdx$/,
+  /^docs\/snippets\/integrations\/agentcore\//,
 ];
 
 function isExcludedPath(relPath: string): boolean {
