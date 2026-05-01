@@ -80,6 +80,7 @@ const PATH_EXCLUSIONS: RegExp[] = [
   // of the two files; the other was an orphan. Block the sync from
   // restoring them.
   /^docs\/content\/docs\/integrations\/langgraph\/shared-state\/workflow-execution\.mdx$/,
+  /^docs\/content\/docs\/integrations\/deepagents\/shared-state\/workflow-execution\.mdx$/,
   /^docs\/content\/docs\/integrations\/adk\/shared-state\/(workflow-execution|state-inputs-outputs)\.mdx$/,
   /^docs\/content\/docs\/integrations\/llamaindex\/shared-state\/state-inputs-outputs\.mdx$/,
   // AgentCore content was inlined into the canonical
